@@ -56,6 +56,23 @@ def add_todo():
 
     return redirect("/todo")
 
+@app.route("/update/<int:id>", methods=["POST"])
+def update_todo(id):
+
+    todo = Todo.query.get(id)
+
+    if todo:
+
+        new_content = request.form.get("content")
+
+        if new_content:
+
+            todo.content = new_content
+
+            db.session.commit()
+
+    return redirect("/todo")
+
 @app.route("/about")
 def about():
     return "<h1>About Page</h1><p>This is the about page.</p><a href='/'>Back to Home</a>"
