@@ -1,28 +1,45 @@
+{% extends "navbar.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quotes</title>
+        <title>Quotes & Data Analysis</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     </head>
 
     <body>
-        <h1>Quotes</h1>
+        <main>
+            <h1>Quotes 數據庫與動態爬蟲分析</h1>
+            
+            {% if analysis %}
+            <section class="tag-box" style="background: #eef2f7; border-left: 5px solid #1d3557;">
+                <h2>📊 爬蟲資料庫 - 數學統計分析面板</h2>
+                <p>本專案透過動態爬蟲技術將名言儲存至 Render PostgreSQL 資料庫，並進行以下字數統計分析：</p>
+                <ul>
+                    <li><strong>總資料筆數 (N)：</strong> {{ analysis.total }} 筆</li>
+                    <li><strong>名言平均長度 ($\mu$)：</strong> {{ analysis.mean }} 個字元</li>
+                    <li><strong>長度標準差 ($\sigma$)：</strong> {{ analysis.std }} (反映文字長度的離散程度)</li>
+                    <li><strong>最長名言字數：</strong> {{ analysis.max }} 個字</li>
+                    <li><strong>最短名言字數：</strong> {{ analysis.min }} 個字</li>
+                </ul>
+            </section>
+            {% endif %}
 
-        {% for quote in quote_list %}
-
-            <div>
-
-                <p>
-                    {{ quote.text }}
-                </p>
-
-                <p>
-                    - {{ quote.author }}
-                </p>
-
-            </div>
-
-            <hr>
-
-        {% endfor %}
+            <section>
+                <h2>📜 從 PostgreSQL 資料庫讀取的名言列表</h2>
+                {% for quote in quote_list %}
+                    <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px dashed #ccc;">
+                        <p style="font-style: italic; font-size: 1.1rem; color: #333;">
+                            "{{ quote.text }}"
+                        </p>
+                        <p style="text-align: right; color: #666; font-weight: bold;">
+                            — {{ quote.author }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </section>
+        </main>
     </body>
 </html>
+{% endblock %}

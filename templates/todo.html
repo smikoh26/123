@@ -1,14 +1,14 @@
+{% extends "navbar.html" %}
+
+{% block content %}
 <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Todo List</title>
-            <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-        </head>
-        <body>
-            {% extends "navbar.html" %}
-
-            {% block content %}
-
+<html>
+    <head>
+        <title>Todo List</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    <body>
+        <main>
             <h1>Todo List</h1>
             
             <form action="/add" method="POST">
@@ -16,43 +16,31 @@
                     type="text"
                     name="content"
                     placeholder="請輸入待辦事項"
+                    required
                 >
-                    <button type="submit">
-                        新增
-                    </button>
-
+                <button type="submit">新增</button>
             </form>
 
             <hr>
 
-            <ul>
-
-{% for todo in todos %}
-
-                <li>
-
-                    <form
-                        action="/update/{{ todo.id }}"
-                        method="POST"
-                    >
-
-                        <input
-                            type="text"
-                            name="content"
-                            value="{{ todo.content }}"
-                        >
-
-                        <button type="submit">
-                            更新
-                        </button>
-
-                    </form>
-
-                </li>
-            {% endfor %}
-
-            </ul>
-
-            {% endblock %}
-        </body>
-    </html>
+            <section>
+                <ul style="list-style: none; padding: 0;">
+                {% for todo in todos %}
+                    <li style="margin-bottom: 10px;">
+                        <form action="/update/{{ todo.id }}" method="POST" style="display: flex; gap: 10px; max-width: 100%;">
+                            <input
+                                type="text"
+                                name="content"
+                                value="{{ todo.content }}"
+                                style="flex-grow: 1;"
+                            >
+                            <button type="submit">更新</button>
+                        </form>
+                    </li>
+                {% endfor %}
+                </ul>
+            </section>
+        </main>
+    </body>
+</html>
+{% endblock %}
