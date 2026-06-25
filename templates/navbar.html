@@ -1,12 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
     <nav>
-        <a href="{{ url_for('home') }}">首頁</a>
-        <a href="{{ url_for('html_tags') }}">HTML 展示</a>
-        <a href="{{ url_for('todo') }}">Todo</a>
-        <a href="{{ url_for('news') }}">Hacknews</a>
-        <a href="{{ url_for('quotes') }}">Quotes</a>
-        <a href="{{ url_for('weather') }}">天氣預報分析</a>
+        <a href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i> 首頁</a>
+        <a href="{{ url_for('html_tags') }}"><i class="fa-solid fa-code"></i> HTML 展示</a>
+        <a href="{{ url_for('todo') }}"><i class="fa-solid fa-list-check"></i> Todo</a>
+        <a href="{{ url_for('news') }}"><i class="fa-solid fa-newspaper"></i> Hacknews</a>
+        <a href="{{ url_for('quotes') }}"><i class="fa-solid fa-quote-left"></i> Quotes</a>
+        <a href="{{ url_for('weather') }}"><i class="fa-solid fa-cloud-sun"></i> 天氣預報分析</a>
     </nav>
 
     <hr>
 
     {% block content %}{% endblock %}
+</body>
+</html>

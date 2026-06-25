@@ -1,18 +1,91 @@
+{% extends "navbar.html" %}
+
+{% block content %}
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Flask MVP</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    </head>
-    <body>
-         {% extends "navbar.html" %}
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flask 綜合數據分析平台</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <style>
+        /* 額外加一點點簡單的首頁排版，讓傳送門卡片並排 */
+        .portal-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .portal-card {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #222;
+            transition: all 0.3s ease;
+        }
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #eef2f7;
+            border-color: #1d3557;
+        }
+        .portal-card h3 {
+            margin-top: 0;
+            color: #1d3557;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header style="background: none; color: #222; padding: 0; text-align: left;">
+            <h1>🚀 Flask 綜合數據分析平台</h1>
+            <p style="font-size: 1.1rem; color: #666;">
+                歡迎來到全端數據整合門戶。本平台結合了分散式資料存儲、自動化網頁數據採集與資料科學統計分析。
+            </p>
+        </header>
 
-        {% block content %}
+        <hr>
 
-        <h1>Flask MVP Website</h1>
-        <p>這是一個最小可行版本的 Flask 網站。</p>   
-    </body>
-    {% endblock %}
+        <section>
+            <h2>🎯 核心功能傳送門</h2>
+            <p>請點擊下方卡片，直接切換至對應的子系統模組：</p>
+            
+            <div class="portal-container">
+                <a href="{{ url_for('todo') }}" class="portal-card">
+                    <h3>📝 待辦清單系統</h3>
+                    <p>連線 Render 雲端 PostgreSQL 資料庫，實現點單數據持久化管理。</p>
+                </a>
+
+                <a href="{{ url_for('news') }}" class="portal-card">
+                    <h3>📰 科技新聞剪報</h3>
+                    <p>使用 BeautifulSoup 進行靜態網頁爬蟲，即時過濾 Hacker News 頭條。</p>
+                </a>
+
+                <a href="{{ url_for('quotes') }}" class="portal-card">
+                    <h3>📜 人文名言數據</h3>
+                    <p>透過 Selenium 動態爬蟲抓取，並導入平均數與標準差之數學統計。</p>
+                </a>
+
+                <a href="{{ url_for('weather') }}" class="portal-card">
+                    <h3>🌤️ 天氣監測面板</h3>
+                    <p>對接中央氣象署官方 API，進行全台氣溫趨勢之資料科學分析。</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="tag-box" style="background: #eef2f7; border-left: 5px solid #457b9d;">
+            <h3>🎓 專案開發技術棧說明</h3>
+            <ul>
+                <li><strong>後端核心：</strong> Python Flask 輕量級架構</li>
+                <li><strong>雲端資料庫：</strong> PostgreSQL 關係型資料庫 (Hosted on Render)</li>
+                <li><strong>採集技術：</strong> Selenium (動態瀏覽器自動化) & BeautifulSoup (靜態解析)</li>
+                <li><strong>容器化技術：</strong> Docker & Docker-Compose 環境隔離</li>
+            </ul>
+        </section>
+    </main>
+</body>
 </html>
+{% endblock %}
