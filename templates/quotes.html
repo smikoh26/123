@@ -2,44 +2,39 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Quotes & Data Analysis</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    </head>
+<html lang="zh-Hant">
+<head>
+    <title>Quotes 名言數據分析</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <main>
+        <h1><i class="fa-solid fa-quote-left"></i> 人文名言數據分析</h1>
 
-    <body>
-        <main>
-            <h1>Quotes 數據庫與動態爬蟲分析</h1>
-            
-            {% if analysis %}
-            <section class="tag-box" style="background: #eef2f7; border-left: 5px solid #1d3557;">
-                <h2>📊 爬蟲資料庫 - 數學統計分析面板</h2>
-                <p>本專案透過動態爬蟲技術將名言儲存至 Render PostgreSQL 資料庫，並進行以下字數統計分析：</p>
-                <ul>
-                    <li><strong>總資料筆數 (N)：</strong> {{ analysis.total }} 筆</li>
-                    <li><strong>名言平均長度 ($\mu$)：</strong> {{ analysis.mean }} 個字元</li>
-                    <li><strong>長度標準差 ($\sigma$)：</strong> {{ analysis.std }} (反映文字長度的離散程度)</li>
-                    <li><strong>最長名言字數：</strong> {{ analysis.max }} 個字</li>
-                    <li><strong>最短名言字數：</strong> {{ analysis.min }} 個字</li>
-                </ul>
-            </section>
-            {% endif %}
+        {% if analysis %}
+        <section class="tag-box" style="background: #eef2f7; border-left: 5px solid #1d3557; padding: 20px; border-radius: 6px;">
+            <h2><i class="fa-solid fa-chart-line"></i> 名言語錄字數統計分析</h2>
+            <p>📊 本次採集總名言數：<strong>{{ analysis.total }}</strong> 則</p>
+            <p>📝 所有名言的<strong>平均字數</strong>：<strong>{{ analysis.mean }}</strong> 個字</p>
+            <p>📈 字數波動的<strong>標準差</strong>：<strong>{{ analysis.std }}</strong> (數字愈大代表長短句差異愈大)</p>
+            <p>🔝 最長的名言字數：<strong>{{ analysis.max }}</strong> 個字 / 🔚 最短的名言字數：<strong>{{ analysis.min }}</strong> 個字</p>
+        </section>
+        {% endif %}
 
-            <section>
-                <h2>📜 從 PostgreSQL 資料庫讀取的名言列表</h2>
-                {% for quote in quote_list %}
-                    <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px dashed #ccc;">
-                        <p style="font-style: italic; font-size: 1.1rem; color: #333;">
-                            "{{ quote.text }}"
-                        </p>
-                        <p style="text-align: right; color: #666; font-weight: bold;">
-                            — {{ quote.author }}
-                        </p>
-                    </div>
-                {% endfor %}
-            </section>
-        </main>
-    </body>
+        <section>
+            <h2><i class="fa-solid fa-database"></i> 已同步至 PostgreSQL 的名言清單</h2>
+            {% for quote in quote_list %}
+                <div style="background: #f8f9fa; padding: 15px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #eee;">
+                    <p style="font-size: 1.1rem; font-style: italic; color: #333; margin-bottom: 5px;">
+                        "{{ quote.text }}"
+                    </p>
+                    <p style="text-align: right; color: #457b9d; font-weight: bold; margin: 0;">
+                        — {{ quote.author }}
+                    </p>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+</body>
 </html>
 {% endblock %}

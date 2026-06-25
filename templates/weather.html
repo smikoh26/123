@@ -2,7 +2,7 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
     <title>全台天氣預報分析</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
@@ -13,14 +13,14 @@
 
         {% if analysis %}
         <section class="tag-box" style="background: #fff3cd; border-left: 5px solid #ffc107;">
-            <h2>📊 全台溫度數學統計</h2>
-            <p>今日全台灣各縣市的<strong>平均最高溫 ($\mu$)</strong> 為：{{ analysis.avg_max }} °C</p>
+            <h2><i class="fa-solid fa-chart-simple"></i> 全台溫度統計數據</h2>
+            <p>今日全台灣各縣市的<strong>平均最高溫</strong>為：{{ analysis.avg_max }} °C</p>
             <p>今日全台最高氣溫達到：{{ analysis.highest }} °C</p>
         </section>
         {% endif %}
 
         <section>
-            <h2>🗺️ 各縣市預報清單 (已同步至 PostgreSQL)</h2>
+            <h2><i class="fa-solid fa-map-location-dot"></i> 各縣市預報清單 (已同步至 PostgreSQL)</h2>
             <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
                 <thead>
                     <tr style="background-color: #1d3557; color: white;">
@@ -33,10 +33,16 @@
                 <tbody>
                     {% for w in weather_list %}
                     <tr>
-                        <td style="padding: 10px; font-weight: bold;">{{ w.location }}</td>
+                        <td style="padding: 10px; font-weight: bold;">
+                            <i class="fa-solid fa-location-dot" style="color: #e63946;"></i> {{ w.location }}
+                        </td>
                         <td style="padding: 10px;">{{ w.weather_text }}</td>
-                        <td style="padding: 10px; color: blue;">{{ w.min_temp }} °C</td>
-                        <td style="padding: 10px; color: red;">{{ w.max_temp }} °C</td>
+                        <td style="padding: 10px; color: #457b9d; font-weight: bold;">
+                            <i class="fa-solid fa-temperature-low"></i> {{ w.min_temp }} °C
+                        </td>
+                        <td style="padding: 10px; color: #e63946; font-weight: bold;">
+                            <i class="fa-solid fa-temperature-high"></i> {{ w.max_temp }} °C
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
